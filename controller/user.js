@@ -39,9 +39,9 @@ const postSignUp = async (req , res) => {
     user = await User.create({ email , name , password : newPassword }) 
 
     const encoded = jwt.sign( { name : user.name , email : user.email } , process.env.JWT_PRIVATE )
-    console.log(encoded)
-    res.header('x-token' , encoded )
-    return res.redirect('/blogs')
+    // return res.setHeader("authToken" , encoded ).redirect("/blogs")
+    return res.setHeader("authToken" , encoded ).send("blogs")
+    // return res.redirect('/blogs')
 }
 
 module.exports = { getLogin , getSignUp , postLogin , postSignUp }

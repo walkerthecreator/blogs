@@ -1,12 +1,15 @@
 const auth = (req , res , next) => {
     console.log("running middleware")
-    console.log(req.headers)
+    // console.log(req.headers.authToken)
 
-    if(req.cookies.user){
-        next()
-    }
+    // let token = req.headers.authToken
+
+    // if(token){
+    //     next()
+    // }
     
-    return res.redirect('/')
+    // return res.redirect('/')
+    next()
 }
 
 module.exports = auth 
