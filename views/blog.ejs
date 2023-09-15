@@ -74,20 +74,20 @@
 </div>
 
 
+<div class="container w-100 d-flex flex-wrap justify-content-around mt-3 gap-5">
 <% for(let i of blog) {%>
-    <div class="container mt-5">
-        <div class="card w-25">
+        <div class="card w-25 ">
             
           <div class="card-header"> <%= i.title %> <a class="text-danger" href="/blogs/delete/<%= i._id %>"><i class="fa fa-solid fa-trash"></i></a></div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p><%= i.content %></p>
-              <footer class="blockquote-footer">@username</footer>
+              <footer class="blockquote-footer"><%= i.user%></footer>
             </blockquote>
           </div>
         </div>
-      </div>
     <% } %>
+</div>
 
 
 

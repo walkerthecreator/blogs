@@ -6,25 +6,20 @@ const getLogin = (req , res) => {
     return res.render('login.ejs')
 }
 
+
 const getSignUp = (req , res) => {
     return res.render('signup.ejs')
 }
 
 const postLogin = async (req , res ) => {
     const { email , password } = req.body
-
-    const encodedData = jwt.sign({ email , password } , process.env.JWT_PRIVATE)
-    res.cookie("user" , encodedData )
-
-
+    
     const user = await User.findOne({ email })
-
-    // if(!user){
-    //     return res.redirect('/user/signup')
-    // }
-    // res.cookie("user" , user )
-    // return res.send("got it")
-    return res.redirect("/blogs")
+    
+    if(!user) return res.redirect('/user/login')
+        const encodedData = jwt.sign({ email , name : user.name } , process.env.JWT_PRIVATE)
+        res.cookie("token" , encodedData )
+        return res.status(200).redirect("/blogs")
 }
 
 const postSignUp = async (req , res) => {
@@ -39,9 +34,20 @@ const postSignUp = async (req , res) => {
     user = await User.create({ email , name , password : newPassword }) 
 
     const encoded = jwt.sign( { name : user.name , email : user.email } , process.env.JWT_PRIVATE )
-    // return res.setHeader("authToken" , encoded ).redirect("/blogs")
-    return res.setHeader("authToken" , encoded ).send("blogs")
+
+    res.cookie("token" , encoded)
+    return res.redirect('/blogs')
+
+    
+
+    // res.header("x-auth-token" , encoded)
+    //  res.redirect("/blogs")
     // return res.redirect('/blogs')
 }
 
-module.exports = { getLogin , getSignUp , postLogin , postSignUp }
+const logout = (req , res ) => {
+    res.cookie("token" , "")
+    return res.status(200).redirect('/user/login')
+}
+
+module.exports = { getLogin , getSignUp , postLogin , postSignUp , logout }

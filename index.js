@@ -27,7 +27,6 @@ app.get('/' , (req , res)=>{
 
 app.use('/blogs' , auth ,  require("./routes/blog"))
 
-
 app.use('/user' , require("./routes/user"))
 
 app.listen( port , ()=>{

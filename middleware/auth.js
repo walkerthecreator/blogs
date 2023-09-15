@@ -1,15 +1,24 @@
-const auth = (req , res , next) => {
-    console.log("running middleware")
-    // console.log(req.headers.authToken)
+const jwt = require("jsonwebtoken")
+const User = require("../Model/user")
 
-    // let token = req.headers.authToken
+const auth = async (req , res , next) => {
 
-    // if(token){
-    //     next()
-    // }
     
-    // return res.redirect('/')
-    next()
+    try{
+        const token = req.cookies.token
+        const decode = jwt.decode(token)
+        const user = await User.find({ email : decode.email })
+
+        if(!user) return res.status("user not exsist")
+        
+        req.user = decode
+        next()
+
+    }
+    catch(err){
+        return res.status(400).redirect('/user/login')
+    }
+
 }
 
 module.exports = auth 
