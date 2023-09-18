@@ -12,12 +12,16 @@ const getSignUp = (req , res) => {
 }
 
 const postLogin = async (req , res ) => {
+
+
     const { email , password } = req.body
     
     const user = await User.findOne({ email })
     
     if(!user) return res.redirect('/user/login')
-        const encodedData = jwt.sign({ email , name : user.name } , process.env.JWT_PRIVATE)
+
+    
+        const encodedData = jwt.sign({ email , name : user.name , id : user._id  } , process.env.JWT_PRIVATE)
         res.cookie("token" , encodedData )
         return res.status(200).redirect("/blogs")
 }

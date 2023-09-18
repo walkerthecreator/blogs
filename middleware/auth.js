@@ -7,7 +7,9 @@ const auth = async (req , res , next) => {
     try{
         const token = req.cookies.token
         const decode = jwt.decode(token)
-        const user = await User.find({ email : decode.email })
+        const user = await User.find({ _id : decode.id })
+
+        console.log(user)
 
         if(!user) return res.status("user not exsist")
         
