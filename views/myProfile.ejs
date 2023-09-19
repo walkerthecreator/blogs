@@ -9,9 +9,11 @@
 <div class="container w-100 d-flex flex-wrap justify-content-around mt-3">
     
     <% for(let i of blog) {%>
+
         <div class="card w-25">
-            
-            <div class="card-header"> <%= i.title %> <a class="text-danger" href="/blogs/delete/<%= i._id %>"><i class="fa fa-solid fa-trash"></i></a></div>
+            <div class="card-header"> <%= i.title %>
+                 <a class="text-danger" href="/blogs/delete/<%= i._id %>"><i class="fa fa-solid fa-trash"></i></a>
+            </div>
             <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p><%= i.content %></p>
@@ -20,6 +22,7 @@
             </blockquote>
           </div>
         </div>
+        
     <% } %>
     
 </div>

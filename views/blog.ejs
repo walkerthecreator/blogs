@@ -78,7 +78,13 @@
 <% for(let i of blog) {%>
         <div class="card w-25 ">
             
-          <div class="card-header"> <%= i.title %> <a class="text-danger" href="/blogs/delete/<%= i._id %>"><i class="fa fa-solid fa-trash"></i></a></div>
+          <div class="card-header d-flex justify-space-between"> 
+                <%= i.title %>
+                <div class="ms-auto">
+                    <a class="text-primary ms-auto px-2" href="/blogs/update/<%= i._id %>"><i class="fa-solid fa-pen"></i></a>
+                    <a class="text-danger ms-auto" href="/blogs/delete/<%= i._id %>"><i class="fa fa-solid fa-trash"></i></a>
+                </div>
+            </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p><%= i.content %></p>
