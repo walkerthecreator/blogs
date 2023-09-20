@@ -1,0 +1,34 @@
+<%- include("head.ejs")%>
+
+<div class="container mt-4 p-5 bg-dark text-white rounded">
+
+    <div class="d-flex w-100 justify-space-between align-item-center">
+
+        <div>
+            <small>Title</small>
+            <h2> <%= blog.title%> </h2>
+        </div>
+        <span class="ms-auto"><%= blog.createdAt.toString().substring(0 , 15) %></span>   <br>   
+    </div>
+
+    <small> Content </small>
+    <p><%= blog.content  %></p>
+
+    <% if(blog.isEdited) {%>
+        <span class="badge bg-secondary">edited</span>
+        <% } %>
+
+        <br>
+        <br>
+
+        <a href="/blogs"></a><button class="btn btn-primary"> go back</button> </a>
+
+
+
+
+</div>
+
+
+<%- include("body.ejs")%>
+
+<!-- str.slice(20) -->

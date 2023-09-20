@@ -1,18 +1,20 @@
 <%- include('head.ejs')%>
 
+<form method="post">
 
-<div class="container bg-dark w-50 text-white p-5 mt-4 rounded">
-    <div class="mb-3 ">
-        <label for="formGroupExampleInput" class="form-label">Title </label>
-        <input type="text" class="form-control" value="<%= blog.title%>" id="formGroupExampleInput" placeholder="Example input placeholder">
+    <div class="container bg-dark w-50 text-white p-5 mt-4 rounded">
+        <div class="mb-3 ">
+            <label for="formGroupExampleInput" class="form-label">Title </label>
+            <input type="text" name="title" class="form-control" value="<%= blog.title%>" id="formGroupExampleInput" placeholder="Example input placeholder">
+        </div>
+        <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Content</label>
+            <input style="height: 20vh;" name="content" type="text" class="form-control" value="<%= blog.content%>" id="formGroupExampleInput" placeholder="Example input placeholder">
+        </div>
+        <button class="btn btn-outline-primary">Update</button>
     </div>
-    <div class="mb-3">
-        <label for="formGroupExampleInput2" class="form-label">Content</label>
-        <input style="height: 20vh;" type="text" class="form-control" value="<%= blog.content%>" id="formGroupExampleInput" placeholder="Example input placeholder">
-
-    </div>
-    <button class="btn btn-outline-primary">Update</button>
-</div>
+    
+</form>
 
 
 <%- include('body.ejs')%>

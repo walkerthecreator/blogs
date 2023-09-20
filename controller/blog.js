@@ -2,8 +2,7 @@ const Blog = require("../Model/Blog")
 
 
 const getBlog = async (req , res) => {
-
-    const blog = await Blog.find().sort({ createdAt : -1  }).populate("user")
+    const blog = await Blog.find().sort({ updatedAt : -1  }).populate("user")
     console.log("from blog page" , blog)
     return res.render("blog.ejs" ,{ blog : blog })
 }
@@ -31,6 +30,13 @@ const getProfile = async (req , res) => {
     return res.render('myProfile.ejs' , {blog , user : user })
 }
 
+// get blog by id 
+const getSingleBlog = async (req , res) => {
+    const { id }  = req.params
+    const blog  = await Blog.findOne({_id : id })
+    return res.status(200).render("singleBlog.ejs" , { blog })
+} 
+
 // GET for updating blog
 const getUpdate = async (req , res) => {
     const { id } = req.params
@@ -39,8 +45,17 @@ const getUpdate = async (req , res) => {
     return res.status(200).render('updateBlog.ejs' , {blog : blog })
 }
 
-const postUpdate = (req , res) => {
+const postUpdate = async (req , res) => {
+    const { id } = req.params 
+    const { title , content } = req.body
 
+    try{
+        const blog = await Blog.updateOne({ _id : id } , { title , content , isEdited : true })
+        return res.status(201).redirect('/blogs')
+    }
+    catch(err){
+        return res.status(500).send("somthing went wrong")
+    }
 }
 
 
@@ -51,4 +66,4 @@ const postUpdate = (req , res) => {
 
 
 
-module.exports = { getBlog , postBlog , deleteBlog , getProfile , getUpdate }
+module.exports = { getBlog , postBlog , deleteBlog , getProfile , getUpdate , postUpdate , getSingleBlog }
