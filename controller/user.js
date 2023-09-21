@@ -29,15 +29,10 @@ const postLogin = async (req , res ) => {
 const postSignUp = async (req , res) => {
     const { name , email , password } = req.body 
     let user = await User.find({email })
-
-    // if(user){
-    //     return res.redirect('/user/login')
-    // }
-
     const newPassword = await bcrypt.hash(password , 10 )
     user = await User.create({ email , name , password : newPassword }) 
 
-    const encoded = jwt.sign( { name : user.name , email : user.email } , process.env.JWT_PRIVATE )
+    const encoded = jwt.sign( { name : user.name , email : user.email , id : user._id } , process.env.JWT_PRIVATE )
 
     res.cookie("token" , encoded)
     return res.redirect('/blogs')
@@ -49,9 +44,6 @@ const postSignUp = async (req , res) => {
     // return res.redirect('/blogs')
 }
 
-const logout = (req , res ) => {
-    res.cookie("token" , "")
-    return res.status(200).redirect('/user/login')
-}
 
-module.exports = { getLogin , getSignUp , postLogin , postSignUp , logout }
+
+module.exports = { getLogin , getSignUp , postLogin , postSignUp  }

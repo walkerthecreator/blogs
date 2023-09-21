@@ -3,7 +3,7 @@ const app = express()
 const db = require("./config/mongoose")
 const Product = require("./Model/Product")
 const path = require("path")
-const auth = require("./middleware/auth")
+const { auth , checkLogin} = require("./middleware/auth")
 const cookieParser = require("cookie-parser")
 const dotenv = require("dotenv").config()
 const port = process.env.PORT || 5001
@@ -27,7 +27,13 @@ app.get('/' , (req , res)=>{
 
 app.use('/blogs' , auth ,  require("./routes/blog"))
 
-app.use('/user' , require("./routes/user"))
+app.use('/user' , checkLogin , require("./routes/user"))
+
+app.get('/logout' , (req , res) => {
+    res.cookie("token" , "")
+    return res.status(200).redirect('/user/login')
+})
+
 
 app.listen( port , ()=>{
     console.log("started server on " + port )

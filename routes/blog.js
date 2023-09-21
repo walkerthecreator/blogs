@@ -1,5 +1,5 @@
 const express = require("express")
-const { getBlog , postBlog , deleteBlog , getProfile, getUpdate , postUpdate, getSingleBlog } = require("../controller/blog")
+const { getBlog , postBlog , deleteBlog , getProfile, getUpdate , postUpdate, getSingleBlog , logout } = require("../controller/blog")
 const router = express.Router()
 
 router.get('/' , getBlog )
